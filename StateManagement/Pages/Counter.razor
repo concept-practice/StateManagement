@@ -1,0 +1,20 @@
+﻿@page "/counter"
+@using StateManagement.State
+@using StateManagement.State.Events
+
+<h1>Counter</h1>
+
+<button class="btn btn-primary" @onclick="() => Store.Publish(new IncreaseCounter())">Increase Counter</button>
+<button class="btn btn-primary" @onclick="() => Store.Publish(new DecreaseCounter())">Decrease Counter</button>
+
+<div>
+    <input type="number" @bind="Amount" />
+    <button class="btn btn-primary" @onclick="() => Store.Publish(new CustomCounterAdjustment(Amount))">Custom Amount</button>
+</div>
+
+@code {
+    [CascadingParameter]
+    public StateStore Store { get; set; }
+
+    public int Amount { get; set; }
+}
